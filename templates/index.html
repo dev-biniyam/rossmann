@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>RossMann</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"  ></script>
+
+    <script src="{{url_for('static', filename='script.js')}}" ></script>
+    <script src="{{url_for('static', filename='datedropper.pro.min.js')}}" ></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='images/rossmann-logo-mini.png')}} "/>
+  
+</head>
+
+<body>
+ 
+ <div class = "container-fluid">
+   <div class="row header">
+     <div class = "col-md-1 menu-container" >
+        <img src="{{url_for('static', filename='images/menu.png')}}" height="40px" class="menu-btn"> 
+     </div>
+     <div class = "col-md-11 logo-container" align="center">
+        <img src="{{url_for('static', filename='images/rossmann-logo.png')}}" height="50px" class="rossmann-logo"> 
+     </div>
+   </div>
+   <div class="row content-body justify-content-between" >
+    <div class="col-md-2 nav-tab">
+      <div class=" container-flex menu-item home-item">
+
+        <div class="item-beacon home-beacon active-beacon">.</div>
+        <div class="item-icon home-icon">
+          <img src="{{url_for('static', filename='images/home-active.png')}}" height="35px" class="home-img"> 
+        </div>
+        <div class="item-name home-name active-name">Home</div>
+
+      </div>
+      <div class=" container-flex menu-item stats-item" >
+
+        <div class="item-beacon stats-beacon">.</div>
+        <div class="item-icon stats-icon">
+          <img src="{{url_for('static', filename='images/stats-active.png')}}" height="35px" class="stats-img" > 
+        </div>
+        <div class="item-name stats-name">Analysis</div>
+
+      </div>
+      <div class="container-flex menu-item team-item">
+
+        <div class="item-beacon team-beacon">.</div>
+        <div class="item-icon team-icon">
+          <img src="{{url_for('static', filename='images/team-active.png')}}" height="35px" class="team-img"> 
+        </div>
+        <div class="item-name team-name">Team</div>
+
+      </div>
+    </div>
+    <div class="col-md-10 main-area ">
+
+      <div class="col-md-12 home-tab tabs active-tab">
+        <div class=" card info">
+         
+          <ul>
+            <li style="display: inline-block">This website is dedicated to serving a time series sales prediction for a sample store of RossMann pharmaceuticals. The model used for this purpose is
+              Facebook's Prophet, a timeseries 
+             prediction model. The training and test dataset used with this model can be found on</li>
+            <li style="display: inline-block"><a href="https://www.kaggle.com/c/rossmann-store-sales/data" target="blank">Kaggle</a></li>
+            <li style="display: inline-block">For an explanatory analysis, checkout the Analysis tab.</li>
+          </ul>
+
+       
+          <ul>
+            <li style="display: inline-block">This work is part of a Data Science training by</li>
+            <li style="display: inline-block"><a href="http://www.10academy.org" target="blank">10academy.org</a></li>
+          </ul>
+        </div>
+        <div class=" card prediction-card">
+     
+          <div class="col-md-4 toggle-container" >
+            <div class="toggle-btn" >Time-series forcast</div>
+          </div>
+
+
+
+
+          <div class="d-flex justify-content-around series-tab   active-predict-tab" >
+            <div>
+              <img src="{{url_for('static', filename='images/calendar.png')}}" height="35px"  > 
+              <input type="text" id="from" placeholder="From" required="required" class="inputs date-input" data-dd-theme="mine" />
+              <input type="text" id="to" placeholder="To" required="required" class="inputs date-input2" data-dd-theme="mine"/>
+            </div>
+              
+              <!-- <img src="{{url_for('static', filename='images/store.png')}}" height="35px"  > 
+              <input type="text" id="store_number" placeholder="Store Number" required="required"  class="inputs"/> -->
+              <button type="submit" class="btn series-submit submit">
+                <img src="{{url_for('static', filename='images/gear.png')}}" height="35px"  >
+                Forcast
+              </button>
+          </div>
+        </div>
+        <div class="card forcast">
+          <p class="forcast-description">The forcast will be displayed here!</p>
+          <div class="loading loading-hidden">loading, this can take about 2 minutes...</div>
+        </div>
+        
+      </div>
+
+      <div class=" col-md-12 stats-tab tabs">
+        
+      </div>
+
+      <div class=" col-md-12 team-tab tabs">
+        <div class=" card info">
+          <div class="d-flex justify-content-around ">
+            <div class="profiles card">
+              <img src="{{url_for('static', filename='images/biniyam.jpg')}}" width="240px" class="team-img">
+              <p class="p-description">
+                <strong>Biniyam Mengis</strong>t<br>
+                 Data Science trainee at 10Academy
+              </p>
+            </div>
+            <div class="profiles card">
+              <img src="{{url_for('static', filename='images/clair.jpeg')}}" width="240px" class="team-img">
+              <p class="p-description">
+                <strong>Claire Munyole</strong><br>
+                 Data Science trainee at 10Academy
+              </p>
+            </div>
+            <div class="profiles card">
+              <img src="{{url_for('static', filename='images/wamuyu.jpeg')}}" width="240px" class="team-img">
+              <p class="p-description">
+                <strong>Wamuyu Wanjohi</strong><br>
+                 Data Science trainee at 10Academy
+              </p>
+            </div>
+          </div>
+          <p class="description">
+            Developed with <span style="color:red">&hearts;</span>  by team <strong>MIJIKENDA KAYA</strong> 
+          </p>
+
+        </div>
+      </div>
+      
+    </div>
+   </div>
+ </div>
+
+
+</body>
+
+</html>
