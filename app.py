@@ -1,11 +1,9 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
-import pickle
 import pandas as pd
 
 app = Flask(__name__)
 
-model = pickle.load(open('prophet.pkl','rb'))
 
 @app.route('/')
 def home():
