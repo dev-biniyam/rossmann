@@ -441,6 +441,8 @@ var show_table = function(dates, lower, prediction, upper){
     format: 'Y-m-d',
     defaultDate: '08/01/2015',
     minDate: '08/01/2015',
+    maxDate:'08/20/2020',
+
   });
 
   $('.date-input2').dateDropper({
@@ -449,6 +451,7 @@ var show_table = function(dates, lower, prediction, upper){
     format: 'Y-m-d',
     defaultDate: '08/08/2015',
     minDate: '08/01/2015',
+    maxDate:'08/20/2020',
 
     
   });
@@ -535,7 +538,13 @@ $(".series-submit").click(function(){
   var from_date = $('#from').val();
   var to_date = $('#to').val();
 
-  $('.forcast').html('<p class="forcast-description">The forcast will be displayed here!</p><div class="loading loading-hidden">loading, this can take about 2 minutes...</div>')
+  $('.forcast').html(`
+  <p class="forcast-description">The forcast will be displayed here!</p>
+  <div class="loading d-flex justify-content-center loading-hidden">
+    <div class="dots dot-1"></div>
+    <div class="dots dot-2"></div>
+    <div class="dots dot-3"></div>
+  </div>`)
   $('.loading').addClass('loading-active')
   
   var my_data = {
@@ -544,13 +553,18 @@ $(".series-submit").click(function(){
   }
 
 if (from_date != "" && to_date != ""){
-    $.post('/predict_test',my_data,function(data, status){
-      $('.forcast').html('<canvas class="forcast-chart"></canvas><p class="table-title">Summary</p><table id="summaryOfResults"><tbody id="t-body"><tr><th>date</th><th>lower limit</th><th>forcasted sale($)</th><th>upper limit</th></tr></tbody></table>')
-      load_forcast_chart(data.dates, data.lower, data.prediction, data.upper)
-      show_table(data.dates, data.lower, data.prediction, data.upper)
-      
-
-  })
+  setTimeout(
+    function() 
+    {
+      $.post('/predict_test',my_data,function(data, status){
+        $('.forcast').html('<canvas class="forcast-chart"></canvas><p class="table-title">Summary</p><table id="summaryOfResults"><tbody id="t-body"><tr><th>date</th><th>lower limit</th><th>forcasted sale($)</th><th>upper limit</th></tr></tbody></table>')
+        load_forcast_chart(data.dates, data.lower, data.prediction, data.upper)
+        show_table(data.dates, data.lower, data.prediction, data.upper)
+        
+  
+    })
+      //do something special
+    }, 5000);
 }
 else{
   alert("fill the required inputs!")

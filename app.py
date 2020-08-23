@@ -24,33 +24,26 @@ def predict_test():
     from_date  = request.values.get('from_date')
     to_date  = request.values.get('to_date')
 
-    mydates = pd.date_range(from_date, to_date)
-    dates_df = pd.DataFrame(mydates, columns = ["ds"])
+    data = pd.read_csv('forcasted.csv')
+    forcast = data[(data.ds >= from_date) & (data.ds <= to_date) ]
 
-    
-    forcast = model.predict(dates_df)
-    result = forcast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
-    result['ds'] = result['ds'].dt.strftime('%Y-%m-%d')
-
-    dates = result.ds.to_list()
-    prediction = result.yhat.to_list()
-    lower = result.yhat_lower.to_list()
-    upper = result.yhat_upper.to_list()
+    dates = forcast.ds.to_list()
+    prediction = forcast.yhat.to_list()
+    lower = forcast.yhat_lower.to_list()
+    upper = forcast.yhat_upper.to_list()
 
     prediction = [ round(elem, 2) for elem in prediction ]
     lower = [ round(elem, 2) for elem in lower ]
     upper = [ round(elem, 2) for elem in upper ]
 
-    
+        
 
     final = {
         "dates": dates,
         "lower": lower,
         "prediction": prediction,
         "upper": upper,
-
     }
-  
     
 
     return final

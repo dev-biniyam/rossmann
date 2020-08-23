@@ -270,3 +270,39 @@ table {
     margin-top:35px 0px;
     font-size: 120%;
   }
+
+
+.dots{
+    width: 10px;
+    height: 10px;
+    background-color: #333E50;
+    border-radius: 50%;
+    margin:5px
+}
+
+.dot-1{
+    animation-name: flow;
+    animation-duration: .4s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.dot-2{
+    animation: flow .4s ease .2s infinite alternate;
+}
+.dot-3{
+    animation: flow .4s ease .4s infinite alternate;
+
+}
+
+@keyframes flow{
+    from{
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    to{
+        opacity: .20;
+        transform: scale(.75);
+    }
+}
